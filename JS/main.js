@@ -1,70 +1,81 @@
 
-// get a qoute
-function getQoute(){
+$('.paragraph').not($('.paragraph').eq(0)).css({display : 'none'})
 
-    var arrayOfQuotes= [
-        {
-            'quote': "Be yourself; everyone else is already taken.",
-            'author': "-- Oscar Wilde"
-        },
-        {
-            'quote': "I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best.",
-            'author': "-- Marilyn Monroe"
-        },
-        {
-            'quote': "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
-            'author': "-- Albert Einstein"
-        },
-        {
-            'quote': "A room without books is like a body without a soul.",
-            'author': "-- Marcus Tullius Cicero"
-        },
-        {
-            'quote': "In three words I can sum up everything I've learned about life: it goes on.",
-            'author': "-- Robert Frost"
-        },
-        {
-            'quote': "If you tell the truth, you don't have to remember anything.",
-            'author': "-- Mark Twain"
-        },
-        {
-            'quote': "Without music, life would be a mistake.",
-            'author': "-- Friedrich Nietzsche, Twilight of the Idols"
-        },
-        {
-            'quote': "I am so clever that sometimes I don't understand a single word of what I am saying.",
-            'author': "-- Oscar Wilde, The Happy Prince and Other Stories"
-        },
-        {
-            'quote': "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.",
-            'author': "-- Ralph Waldo Emerson"
-        },
-        {
-            'quote': "It is better to be hated for what you are than to be loved for what you are not.",
-            'author': "-- Andre Gide, Autumn Leaves"
-        },
-        {
-            'quote': "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover.",
-            'author': "-- H. Jackson Brown Jr., P.S. I Love You "
-        },
-    ]
 
+//navbar
+$('#closeBtn').on('click',function(){
     
-    var randomNum= getRandomQoutes(arrayOfQuotes.length);
-    document.getElementById('quote').innerHTML = arrayOfQuotes[randomNum].quote;
-    document.getElementById('author').innerHTML = arrayOfQuotes[randomNum].author;
+    if($('.sideNav').width() == 250 ){   
+        $('.sideNav').animate({width: '0'},50) 
+        $('.homeContent').css({marginLeft : '0'}, 50)
+        $('.countImage').css({width: '100%'})
+        $('.row').css({marginRight: '0'})
+        $('.countImage').css({marginLeft : '0'}, 50)
+        $('#inputs').addClass('col-md-6')
+        $('#inputs').removeClass('col-md-5')
+        $('.contactSec').css({marginLeft : '0'}, 50)
+        $('.sliderDownSec').css({margin: '100px auto'} ,50)
+    }
+})
+$('.open').on('click',function(){
+    if($('.sideNav').width() == 0 ){
+        $('.sideNav').animate({width: '250px'},50) 
+        $('.homeContent').css({marginLeft : '250px'}, 50)
+        $('.countImage').css({width: '80%'})
+        $('.row').css({marginRight: '0'})
+        $('.countImage').css({marginLeft : '250px'}, 50)
+        $('#inputs').removeClass('col-md-6')
+        $('#inputs').addClass('col-md-5')
+        $('.contactSec').css({marginLeft : '300px'}, 50)
+        $('.sliderDownSec').css({marginLeft: '370px'} ,50)
+
+    }
+})
 
 
-}
-
-// picking random array value
-function getRandomQoutes(qoutesArray){
-    return Math.floor(Math.random() * qoutesArray);
-
-}
+//Slider
+$('.title').on('click',function(e){
+    $(e.target).next().slideToggle(500);
+    $('.paragraph').not($(e.target).next()).slideUp(500); 
+});
 
 
+//Scroll of body
+$(".sideNav a").on('click',function(e){
+    
+    let sectionId= $(e.target).attr("href");
+    let positionOfSection = $(sectionId).offset().top;
+    
+    //console.log(positionOfSection);
+
+    $("html , body").animate({scrollTop :positionOfSection} ,2000);
+    
+});
 
 
+//Date CountDown
+$('.countLayer').countdown("2025/10/25", function(e){
+
+    $('#day').text(e.strftime('%D D'));
+    $('#hours').text(e.strftime('%H h'));
+    $('#minutes').text(e.strftime('%M m'));
+    $('#seconds').text(e.strftime('%S s'));
+
+});
+
+
+// Count the number of characters in the message
+$('#textarea').on('keyup', function(e){
+   // console.log(e.target.value.length);
+
+   let lenOfChar= $(e.target).val().length;
+   //console.log($(e.target).val().length);
+
+   if (lenOfChar > 100){
+    $('#number').text('your available character finished')
+   }else {
+        $('#number').text(100 - lenOfChar);
+    }
+})
 
 
